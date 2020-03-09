@@ -3,9 +3,10 @@
     Properties
     {
         _Color ("Color", Color) = (0,0,0,1)
-        _Freq ("Frequency", Range(0, 10)) = 1
+        _Freq ("Frequency", float) = 1
         _Amp ("Amplitude", Range(0, 10)) = 1
         _Speed ("Speed", float) = 10
+        _Offset ("Offset", Vector) = (0,0,0,0)
     }
     SubShader
     {
@@ -37,13 +38,14 @@
             float _Freq;
             float _Amp;
             float _Speed;
+            float2 _Offset;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                float waveHeight = sin((o.vertex.x + _Time.x * _Speed) * _Freq) * _Amp + sin((o.vertex.x + _Time.x * _Speed * 1.5) * _Freq * 1.5) * _Amp;
-                o.vertex.y += waveHeight;
+                float waveHeight = sin((o.vertex.x + _Offset.x + _Time.x * _Speed) * _Freq) * _Amp;
+                o.vertex.y += waveHeight + _Offset.y;
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
             }

@@ -11,6 +11,11 @@ public class Move : MonoBehaviour
 
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         currentSpeed = speed;
     }
 

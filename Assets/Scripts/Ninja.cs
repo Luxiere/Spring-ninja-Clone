@@ -7,6 +7,7 @@ public class Ninja : MonoBehaviour
 {
     [SerializeField] Columns columns = null;
     [SerializeField] float jumpSpeed = 10;
+    [SerializeField] float fallingMultiplier = 1.5f;
     [SerializeField] float positionOddX = 0.9f, positionOddY = 0.11f;
     [SerializeField] float recoveryTime = 1f;
     [SerializeField] float faceplantDistance = 1f;
@@ -39,7 +40,7 @@ public class Ninja : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(new Vector3(0, currentSpeed * Time.fixedDeltaTime, 0));     
+        transform.Translate(new Vector3(0, (currentSpeed < 0 ? currentSpeed * fallingMultiplier : currentSpeed ) * Time.fixedDeltaTime, 0));     
         if (!isJumping) return;
 
         if (transform.position.y < losePosition)

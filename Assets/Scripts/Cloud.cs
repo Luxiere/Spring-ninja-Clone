@@ -16,6 +16,7 @@ public class Cloud : Move
     private void Start()
     {
         if(randomStart) Spawn(0);
+        Init();
     }
 
     void Update()
